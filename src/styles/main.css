@@ -71,15 +71,18 @@ i {
 }
 
 html:root {
-  --header-bg-color: #fff;
-  --header-text-color: #0a0a0a;
-  --active-color: var(--el-color-primary);
+  --header-bg-color: rgba(34, 58, 125, 1);
+  --header-active-color: var(--el-color-primary);
+  --header-text-color: #fff;
+  --sidebar-bg-color: rgba(21, 56, 91, 1);
+  --sidebar-active-color: var(--el-color-primary);
+  --side-hover-bg-color: var(--el-color-primary-light-9);
+  --sidebar-text-color: #fff;
+  --side-width: 180px;
   /* --content-bg-color: #eef0fc; */
   --content-bg-color: var(--el-bg-color);
   --content-bg: var(--el-bg-color);
   --main-bg: var(--el-bg-color-page);
-  --sider-width: 200px;
-  --side-hover-bg-color: var(--el-color-primary-light-9);
   --border-color: #e5e7eb;
   --collapsed-width: calc(var(--el-menu-icon-width) + var(--el-menu-base-level-padding) * 2 + 16px);
   --header-height: 70px;
@@ -118,4 +121,17 @@ html .el-card {
   border-radius: 0;
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
   background: rgba(0, 0, 0, 0.1);
+}
+
+.color-primary {
+  color: var(--el-color-primary);
+}
+.color-warning {
+  color: var(--el-color-warning);
+}
+.color-danger {
+  color: var(--el-color-danger);
+}
+.color-info {
+  color: var(--el-color-info);
 }

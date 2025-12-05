@@ -23,3 +23,14 @@
 .el-pagination {
   justify-content: center;
 }
+
+.el-upload-list--picture-card .el-upload-list__item{
+    margin: 0;
+}
+
+.el-transfer{
+ --el-transfer-panel-width:calc(50% - 120px);
+ .el-transfer-panel{
+    min-width: 200px;
+ }
+}

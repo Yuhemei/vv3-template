@@ -1,4 +1,4 @@
-// 403或404页面
+/* 403或404页面 */
 .error-page {
   display: flex;
   justify-content: center;
@@ -40,4 +40,10 @@
 
 .error-btn {
   margin-left: 100px;
+}
+
+.info-content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }

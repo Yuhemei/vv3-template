@@ -10,7 +10,7 @@
 @import url(./element-plus.scss);
 
 .collapse {
-  visibility: visible; //防止带有.collapse的元素隐藏，不可删
+  visibility: visible; /* 防止带有.collapse的元素隐藏，不可删 */
 }
 
 .avatar {
