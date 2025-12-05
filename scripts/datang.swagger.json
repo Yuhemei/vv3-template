@@ -1,0 +1,3367 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "中核控制安全应急演练系统",
+    "version": "last"
+  },
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "公用接口",
+      "description": "common"
+    },
+    {
+      "name": "test",
+     "description": ""
+    },
+    {
+      "name": "事件模拟",
+      "description": "event"
+    },
+    {
+      "name": "任务构建",
+      "description": "task"
+    },
+    {
+      "name": "预案管理",
+      "description": "reserve_plans"
+    },
+    {
+      "name": "演练执行",
+      "description": "gesats"
+    },
+    {
+      "name": "用户端",
+      "description": "user"
+    },
+    {
+      "name": "用户端-成果裁决",
+      "description": "answer"
+    }
+  ],
+  "schemes": ["http"],
+  "paths": {
+
+    "/api/test": {
+      "post": {
+        "tags": [],
+        "summary": "test",
+        "description": "",
+        "consumes": ["multipart/form-data"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "file_type",
+            "in": "query",
+            "required": true,
+            "description": "文件类型。“ event_simulation” 事件模拟， “ reserve_plan” 预案管理  “ competition” 比赛",
+            "type": "string"
+          },
+          {
+            "name": "file",
+            "in": "formData",
+            "required": true,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "file_id": {
+                  "type": "number",
+                  "description": "文件ID"
+                },
+                "file_name": {
+                  "type": "string",
+                  "description": "文件名称"
+                },
+                "file_path": {
+                  "type": "string",
+                  "description": "文件路径"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/api/v1/file/upload": {
+      "post": {
+        "tags": ["公用接口"],
+        "summary": "文件上传",
+        "description": "",
+        "consumes": ["multipart/form-data"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "file_type",
+            "in": "query",
+            "required": true,
+            "description": "文件类型。“ event_simulation” 事件模拟， “ reserve_plan” 预案管理  “ competition” 比赛",
+            "type": "string"
+          },
+          {
+            "name": "file",
+            "in": "formData",
+            "required": true,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "file_id": {
+                  "type": "number",
+                  "description": "文件ID"
+                },
+                "file_name": {
+                  "type": "string",
+                  "description": "文件名称"
+                },
+                "file_path": {
+                  "type": "string",
+                  "description": "文件路径"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/event_classes": {
+      "get": {
+        "tags": ["事件模拟"],
+        "summary": "事件分类列表",
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "当前页数默认1。page=-1返回所有",
+            "type": "string"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "description": "分页每页记录数",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "description": "ID"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "名称"
+                      }
+                    },
+                    "required": ["id", "name"]
+                  },
+                  "description": "查询数据"
+                },
+                "page_info": {
+                  "type": "object",
+                  "properties": {
+                    "current_page": {
+                      "type": "number",
+                      "description": "当前页"
+                    },
+                    "total_page": {
+                      "type": "number",
+                      "description": "总页数"
+                    },
+                    "has_next": {
+                      "type": "boolean",
+                      "description": "是否有下一页"
+                    },
+                    "has_previous": {
+                      "type": "boolean",
+                      "description": "是否有前一页"
+                    },
+                    "object_count": {
+                      "type": "number",
+                      "description": "总记录数"
+                    }
+                  }
+                }
+              },
+              "required": ["data", "page_info"]
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["事件模拟"],
+        "summary": "事件分类创建",
+        "description": "",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "分类名称"
+                }
+              },
+              "required": ["name"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "ID"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "名称"
+                }
+              },
+              "required": ["id", "name"]
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/event_class/{id}": {
+      "delete": {
+        "tags": ["事件模拟"],
+        "summary": "事件分类删除",
+        "description": "",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "事件分类ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/event_simulations": {
+      "get": {
+        "tags": ["事件模拟"],
+        "summary": "事件模拟列表",
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "当前页数默认1。page=-1返回所有",
+            "type": "string"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "description": "分页每页记录数",
+            "type": "string"
+          },
+          {
+            "name": "event_class",
+            "in": "query",
+            "required": false,
+            "description": "事件分类",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "description": "事件名称",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "description": "ID"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "名称"
+                      },
+                      "event_class_name": {
+                        "type": "string",
+                        "description": "事件分类"
+                      },
+                      "plan_name": {
+                        "type": "string",
+                        "description": "所属预案名称"
+                      },
+                      "script_url": {
+                        "type": "string",
+                        "description": "事件脚本"
+                      },
+                      "desc": {
+                        "type": "string",
+                        "description": "事件说明"
+                      },
+                      "scene_duplication_id": {
+                        "type": "number",
+                        "description": "关联场景ID"
+                      },
+                      "component_id": {
+                        "type": "number",
+                        "description": "关联组件ID"
+                      },
+                      "created_local_time": {
+                        "type": "string",
+                        "description": "创建时间"
+                      },
+                      "updated_local_time": {
+                        "type": "string",
+                        "description": "更新时间"
+                      },
+                      "tasks": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "number",
+                              "description": "任务ID"
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "任务名称"
+                            }
+                          },
+                          "required": ["id", "name"]
+                        },
+                        "description": "事件任务"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "updated_local_time",
+                      "created_local_time",
+                      "plan_name",
+                      "event_class_name",
+                      "script_url",
+                      "desc",
+                      "component_id",
+                      "scene_duplication_id",
+                      "tasks"
+                    ]
+                  },
+                  "description": "查询数据"
+                },
+                "page_info": {
+                  "type": "object",
+                  "properties": {
+                    "current_page": {
+                      "type": "number",
+                      "description": "当前页"
+                    },
+                    "total_page": {
+                      "type": "number",
+                      "description": "总页数"
+                    },
+                    "has_next": {
+                      "type": "boolean",
+                      "description": "是否有下一页"
+                    },
+                    "has_previous": {
+                      "type": "boolean",
+                      "description": "是否有前一页"
+                    },
+                    "object_count": {
+                      "type": "number",
+                      "description": "总记录数"
+                    }
+                  }
+                }
+              },
+              "required": ["data", "page_info"]
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["事件模拟"],
+        "summary": "事件模拟创建",
+        "description": "",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "event_class_id": {
+                  "type": "number"
+                },
+                "script_url": {
+                  "type": "string"
+                },
+                "desc": {
+                  "type": "string"
+                },
+                "component_id": {
+                  "type": "number"
+                }
+              },
+              "required": ["name", "event_class_id", "script_url", "component_id"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "event_class_id": {
+                  "type": "number"
+                },
+                "script_url": {
+                  "type": "string"
+                },
+                "desc": {
+                  "type": "string"
+                },
+                "component_id": {
+                  "type": "number"
+                },
+                "scene_duplication_id": {
+                  "type": "number"
+                },
+                "create_local_time": {
+                  "type": "string"
+                },
+                "updated_local_time": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "event_class_id",
+                "updated_local_time",
+                "create_local_time",
+                "desc",
+                "script_url",
+                "component_id",
+                "scene_duplication_id"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/event_simulation/{id}": {
+      "delete": {
+        "tags": ["事件模拟"],
+        "summary": "事件模拟删除",
+        "description": "",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {}
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["事件模拟"],
+        "summary": "事件模拟编辑",
+        "description": "",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "event_class_id": {
+                  "type": "number"
+                },
+                "script_url": {
+                  "type": "string"
+                },
+                "desc": {
+                  "type": "string"
+                },
+                "component_id": {
+                  "type": "number"
+                }
+              },
+              "required": ["name", "event_class_id", "script_url", "component_id"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "event_class_id": {
+                  "type": "number"
+                },
+                "script_url": {
+                  "type": "string"
+                },
+                "desc": {
+                  "type": "string"
+                },
+                "component_id": {
+                  "type": "number"
+                },
+                "scene_duplication_id": {
+                  "type": "number"
+                },
+                "create_local_time": {
+                  "type": "string"
+                },
+                "updated_local_time": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "event_class_id",
+                "updated_local_time",
+                "create_local_time",
+                "desc",
+                "script_url",
+                "component_id",
+                "scene_duplication_id"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tasks": {
+      "get": {
+        "tags": ["任务构建"],
+        "summary": "任务列表",
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "当前页数默认1。page=-1返回所有",
+            "type": "string"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "description": "分页每页记录数",
+            "type": "string"
+          },
+          {
+            "name": "event_name",
+            "in": "query",
+            "required": false,
+            "description": "事件名称",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "description": "任务名称",
+            "type": "string"
+          },
+          {
+            "name": "role_name",
+            "in": "query",
+            "required": false,
+            "description": "角色名称",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "description": "ID"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "名称"
+                      },
+                      "event_name": {
+                        "type": "string",
+                        "description": "事件名称"
+                      },
+                      "role_name": {
+                        "type": "string",
+                        "description": "角色名称"
+                      },
+                      "created_local_time": {
+                        "type": "string",
+                        "description": "创建时间"
+                      },
+                      "updated_local_time": {
+                        "type": "string",
+                        "description": "更新时间"
+                      }
+                    },
+                    "required": ["id", "name", "updated_local_time", "created_local_time", "role_name", "event_name"]
+                  },
+                  "description": "查询数据"
+                },
+                "page_info": {
+                  "type": "object",
+                  "properties": {
+                    "current_page": {
+                      "type": "number",
+                      "description": "当前页"
+                    },
+                    "total_page": {
+                      "type": "number",
+                      "description": "总页数"
+                    },
+                    "has_next": {
+                      "type": "boolean",
+                      "description": "是否有下一页"
+                    },
+                    "has_previous": {
+                      "type": "boolean",
+                      "description": "是否有前一页"
+                    },
+                    "object_count": {
+                      "type": "number",
+                      "description": "总记录数"
+                    }
+                  }
+                }
+              },
+              "required": ["data", "page_info"]
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["任务构建"],
+        "summary": "任务创建",
+        "description": "",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "任务名称"
+                },
+                "role_id": {
+                  "type": "number",
+                  "description": "归属角色ID"
+                },
+                "event_id": {
+                  "type": "number"
+                },
+                "cycle": {
+                  "type": "number",
+                  "description": "任务周期"
+                },
+                "desc": {
+                  "type": "string",
+                  "description": "任务描述"
+                }
+              },
+              "required": ["name", "role_id"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "number"
+                },
+                "role_id": {
+                  "type": "number"
+                },
+                "event_id": {
+                  "type": "number"
+                },
+                "cycle": {
+                  "type": "number"
+                },
+                "desc": {
+                  "type": "string"
+                },
+                "created_local_time": {
+                  "type": "string"
+                },
+                "updated_local_time": {
+                  "type": "string"
+                }
+              },
+              "required": []
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/task/{id}": {
+      "delete": {
+        "tags": ["任务构建"],
+        "summary": "任务删除",
+        "description": "",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {}
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["任务构建"],
+        "summary": "任务编辑",
+        "description": "",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "任务名称"
+                },
+                "role_id": {
+                  "type": "number",
+                  "description": "归属角色ID"
+                },
+                "event_id": {
+                  "type": "number"
+                },
+                "cycle": {
+                  "type": "number",
+                  "description": "任务周期"
+                },
+                "desc": {
+                  "type": "string",
+                  "description": "任务描述"
+                }
+              },
+              "required": ["name", "role_id"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "number"
+                },
+                "role_id": {
+                  "type": "number"
+                },
+                "event_id": {
+                  "type": "number"
+                },
+                "cycle": {
+                  "type": "number"
+                },
+                "desc": {
+                  "type": "string"
+                },
+                "created_local_time": {
+                  "type": "string"
+                },
+                "updated_local_time": {
+                  "type": "string"
+                }
+              },
+              "required": []
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/reserve_plans": {
+      "get": {
+        "tags": ["预案管理"],
+        "summary": "预案列表",
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "当前页数默认1。page=-1返回所有",
+            "type": "string"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "description": "分页每页记录数",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "description": "名称",
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "description": "预案类型。1.桌面推演2.模拟演练",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "description": "ID"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "名称"
+                      },
+                      "type": {
+                        "type": "string",
+                        "description": "预案类型。1.桌面推演2.模拟演练"
+                      },
+                      "role_name": {
+                        "type": "string",
+                        "description": "预案角色"
+                      },
+                      "created_local_time": {
+                        "type": "string",
+                        "description": "创建时间"
+                      },
+                      "updated_local_time": {
+                        "type": "string",
+                        "description": "更新时间"
+                      }
+                    },
+                    "required": ["id", "name", "updated_local_time", "created_local_time", "role_name", "type"]
+                  },
+                  "description": "查询数据"
+                },
+                "page_info": {
+                  "type": "object",
+                  "properties": {
+                    "current_page": {
+                      "type": "number",
+                      "description": "当前页"
+                    },
+                    "total_page": {
+                      "type": "number",
+                      "description": "总页数"
+                    },
+                    "has_next": {
+                      "type": "boolean",
+                      "description": "是否有下一页"
+                    },
+                    "has_previous": {
+                      "type": "boolean",
+                      "description": "是否有前一页"
+                    },
+                    "object_count": {
+                      "type": "number",
+                      "description": "总记录数"
+                    }
+                  }
+                }
+              },
+              "required": ["data", "page_info"]
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["预案管理"],
+        "summary": "预案创建",
+        "description": "",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "名称"
+                },
+                "cycle_time": {
+                  "type": "string",
+                  "description": "预案周期"
+                },
+                "type": {
+                  "type": "number",
+                  "description": "预案类型。-1 所有  1.桌面推演 2.模拟演练 "
+                },
+                "back": {
+                  "type": "string",
+                  "description": "预案背景"
+                },
+                "scene_duplication_id": {
+                  "type": "number",
+                  "description": "场景副本ID"
+                },
+                "red_team_start": {
+                  "type": "number",
+                  "description": "是否开启红队角色扮演。 0不开启   1开启"
+                },
+                "blue_team_start": {
+                  "type": "number",
+                  "description": "是否开启蓝队队角色扮演.。0不开启   1开启"
+                },
+                "access_method": {
+                  "type": "number",
+                  "description": "接入方式。1实体接入 2.跳板机接入"
+                },
+                "connect_method": {
+                  "type": "number",
+                  "description": "连接方式。1.ssh 2.rdp 3.web 4.vnc"
+                },
+                "connect_info": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "用户名"
+                    },
+                    "passwd": {
+                      "type": "string",
+                      "description": "密码"
+                    },
+                    "port": {
+                      "type": "string",
+                      "description": "端口"
+                    }
+                  },
+                  "required": ["name", "passwd", "port"]
+                },
+                "board_component_id": {
+                  "type": "string",
+                  "description": "跳板机组件ID"
+                },
+                "task_ids": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "description": "任务ID数组"
+                },
+                "cover": {
+                  "type": "string",
+                  "description": "预案封面"
+                }
+              },
+              "required": [
+                "name",
+                "cycle_time",
+                "type",
+                "back",
+                "scene_duplication_id",
+                "red_team_start",
+                "blue_team_start",
+                "access_method",
+                "connect_method",
+                "cover",
+                "task_ids"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "number"
+                },
+                "cycle_time": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "number"
+                },
+                "back": {
+                  "type": "string"
+                },
+                "scene_duplication_id": {
+                  "type": "number"
+                },
+                "red_team_start": {
+                  "type": "number"
+                },
+                "blue_team_start": {
+                  "type": "number"
+                },
+                "access_method": {
+                  "type": "number"
+                },
+                "connect_method": {
+                  "type": "number"
+                },
+                "cover": {
+                  "type": "string"
+                },
+                "connect_info": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "passwd": {
+                      "type": "string"
+                    },
+                    "port": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "board_component_id": {
+                  "type": "string"
+                },
+                "task_ids": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/reserve_plan/{id}": {
+      "delete": {
+        "tags": ["预案管理"],
+        "summary": "预案删除",
+        "description": "",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {}
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["预案管理"],
+        "summary": "预案编辑",
+        "description": "",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "名称"
+                },
+                "cycle_time": {
+                  "type": "string",
+                  "description": "预案周期"
+                },
+                "type": {
+                  "type": "number",
+                  "description": "预案类型。-1 所有  1.桌面推演 2.模拟演练 "
+                },
+                "back": {
+                  "type": "string",
+                  "description": "预案背景"
+                },
+                "scene_duplication_id": {
+                  "type": "number",
+                  "description": "场景副本ID"
+                },
+                "red_team_start": {
+                  "type": "number",
+                  "description": "是否开启红队角色扮演。 0不开启   1开启"
+                },
+                "blue_team_start": {
+                  "type": "number",
+                  "description": "是否开启蓝队队角色扮演.。0不开启   1开启"
+                },
+                "access_method": {
+                  "type": "number",
+                  "description": "接入方式。1实体接入 2.跳板机接入"
+                },
+                "connect_method": {
+                  "type": "number",
+                  "description": "连接方式。1.ssh 2.rdp 3.web 4.vnc"
+                },
+                "connect_info": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "用户名"
+                    },
+                    "passwd": {
+                      "type": "string",
+                      "description": "密码"
+                    },
+                    "port": {
+                      "type": "string",
+                      "description": "端口"
+                    }
+                  },
+                  "required": ["name", "passwd", "port"]
+                },
+                "board_component_id": {
+                  "type": "string",
+                  "description": "跳板机组件ID"
+                },
+                "task_ids": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "description": "任务ID数组"
+                },
+                "cover": {
+                  "type": "string",
+                  "description": "预案封面"
+                }
+              },
+              "required": [
+                "name",
+                "cycle_time",
+                "type",
+                "back",
+                "scene_duplication_id",
+                "red_team_start",
+                "blue_team_start",
+                "access_method",
+                "connect_method",
+                "cover",
+                "task_ids"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "number"
+                },
+                "cycle_time": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "number"
+                },
+                "back": {
+                  "type": "string"
+                },
+                "scene_duplication_id": {
+                  "type": "number"
+                },
+                "red_team_start": {
+                  "type": "number"
+                },
+                "blue_team_start": {
+                  "type": "number"
+                },
+                "access_method": {
+                  "type": "number"
+                },
+                "connect_method": {
+                  "type": "number"
+                },
+                "cover": {
+                  "type": "string"
+                },
+                "connect_info": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "passwd": {
+                      "type": "string"
+                    },
+                    "port": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "board_component_id": {
+                  "type": "string"
+                },
+                "task_ids": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gesats_execute/competitions": {
+      "post": {
+        "tags": ["演练执行"],
+        "summary": "演练执行下发",
+        "description": "",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "演练名称"
+                },
+                "sponsor": {
+                  "type": "string",
+                  "description": "主办方"
+                },
+                "open_type": {
+                  "type": "number",
+                  "description": "开关方式。1.全自动开启关闭 2.全手动开启关闭3.自动开启，手动关闭4.手动开启，自动关闭"
+                },
+                "cycle": {
+                  "type": "number",
+                  "description": "演练周期。单位min"
+                },
+                "red_team_users": {
+                  "type": "array",
+                  "items": {
+                    "type": "number",
+                    "description": "用户ID"
+                  },
+                  "description": "红队人员配置"
+                },
+                "blue_team_users": {
+                  "type": "array",
+                  "items": {
+                    "type": "number",
+                    "description": "用户ID"
+                  },
+                  "description": "蓝队人员配置"
+                },
+                "direct_adjust_users": {
+                  "type": "array",
+                  "items": {
+                    "type": "number",
+                    "description": "用户ID"
+                  },
+                  "description": "导调人员配置"
+                }
+              },
+              "required": []
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gesats_executes": {
+      "get": {
+        "tags": ["演练执行"],
+        "summary": "演练执行列表",
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "当前页数默认1。page=-1返回所有",
+            "type": "string"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "description": "分页每页记录数",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "description": "名称",
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "description": "预案类型。1.桌面推演2.模拟演练",
+            "type": "string"
+          },
+          {
+            "name": "role_type",
+            "in": "query",
+            "required": false,
+            "description": "预案角色。1.红队模拟2.蓝队模拟",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "description": "ID"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "名称"
+                      },
+                      "type_name": {
+                        "type": "string",
+                        "description": "预案类型"
+                      },
+                      "role_name": {
+                        "type": "string",
+                        "description": "预案角色"
+                      },
+                      "created_local_time": {
+                        "type": "string",
+                        "description": "创建时间"
+                      },
+                      "updated_local_time": {
+                        "type": "string",
+                        "description": "更新时间"
+                      }
+                    },
+                    "required": ["id", "name", "updated_local_time", "created_local_time", "role_name", "type_name"]
+                  },
+                  "description": "查询数据"
+                },
+                "page_info": {
+                  "type": "object",
+                  "properties": {
+                    "current_page": {
+                      "type": "number",
+                      "description": "当前页"
+                    },
+                    "total_page": {
+                      "type": "number",
+                      "description": "总页数"
+                    },
+                    "has_next": {
+                      "type": "boolean",
+                      "description": "是否有下一页"
+                    },
+                    "has_previous": {
+                      "type": "boolean",
+                      "description": "是否有前一页"
+                    },
+                    "object_count": {
+                      "type": "number",
+                      "description": "总记录数"
+                    }
+                  }
+                }
+              },
+              "required": ["data", "page_info"]
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["演练执行"],
+        "summary": "演练执行创建",
+        "description": "",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "number"
+                },
+                "plan_id": {
+                  "type": "number"
+                },
+                "back": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "number"
+                },
+                "plan_id": {
+                  "type": "number"
+                },
+                "back": {
+                  "type": "string"
+                },
+                "created_local_time": {
+                  "type": "string"
+                },
+                "updated_local_time": {
+                  "type": "string"
+                }
+              },
+              "required": []
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gesats_execute/{id}": {
+      "delete": {
+        "tags": ["演练执行"],
+        "summary": "演练执行删除",
+        "description": "",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {},
+              "required": []
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["演练执行"],
+        "summary": "演练执行更新",
+        "description": "",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "number"
+                },
+                "plan_id": {
+                  "type": "number"
+                },
+                "back": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "number"
+                },
+                "plan_id": {
+                  "type": "number"
+                },
+                "back": {
+                  "type": "string"
+                },
+                "created_local_time": {
+                  "type": "string"
+                },
+                "updated_local_time": {
+                  "type": "string"
+                }
+              },
+              "required": []
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gesats_execute/competition/{id}": {
+      "delete": {
+        "tags": ["演练执行"],
+        "summary": "演练执行删除比赛",
+        "description": "",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gesats_executes/{id}": {
+      "get": {
+        "tags": ["演练执行"],
+        "summary": "演练执行详情",
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "issue_name",
+            "in": "query",
+            "required": true,
+            "description": "下发演练名称",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "演练名称"
+                },
+                "competition_count": {
+                  "type": "number",
+                  "description": "下发比赛数量"
+                },
+                "created_local_time": {
+                  "type": "string",
+                  "description": "创建时间"
+                },
+                "updated_local_time": {
+                  "type": "string",
+                  "description": "修改时间"
+                },
+                "last_issue_time": {
+                  "type": "string",
+                  "description": "最后下发时间"
+                },
+                "current_run_gesats": {
+                  "type": "string",
+                  "description": "当前运行比赛"
+                },
+                "competition_data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "比赛名称"
+                      },
+                      "status": {
+                        "type": "number",
+                        "description": "状态。0.未开启 1.运行"
+                      },
+                      "open_type": {
+                        "type": "string",
+                        "description": "开启方式"
+                      },
+                      "start_time": {
+                        "type": "string",
+                        "description": "开始时间"
+                      },
+                      "end_time": {
+                        "type": "string",
+                        "description": "结束时间"
+                      },
+                      "id": {
+                        "type": "number"
+                      }
+                    }
+                  },
+                  "description": "下发比赛"
+                }
+              },
+              "required": []
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/competition/{id}/event_statistics": {
+      "get": {
+        "tags": ["用户端"],
+        "summary": "事件统计",
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "比赛名称"
+                },
+                "run_time": {
+                  "type": "number",
+                  "description": "运行时间"
+                },
+                "tasks": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "description": "任务ID"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "任务名称"
+                      },
+                      "cycle": {
+                        "type": "number",
+                        "description": "任务执行时间"
+                      },
+                      "event_desc": {
+                        "type": "string",
+                        "description": "事件描述"
+                      },
+                      "desc": {
+                        "type": "string",
+                        "description": "任务描述"
+                      }
+                    },
+                    "required": ["id", "name", "event_desc", "cycle", "desc"]
+                  }
+                },
+                "score_ranking": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["name"]
+                  },
+                  "description": "成绩排行"
+                },
+                "reports": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "提交报告名称"
+                      },
+                      "report_url": {
+                        "type": "string",
+                        "description": "提交报告链接"
+                      }
+                    },
+                    "required": ["name", "report_url"]
+                  }
+                }
+              },
+              "required": ["id", "name", "run_time", "tasks", "score_ranking", "reports"]
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/competition/{id}/advertise_messages": {
+      "get": {
+        "tags": ["用户端"],
+        "summary": "公告消息",
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "比赛名称"
+                },
+                "run_time": {
+                  "type": "number",
+                  "description": "运行时间"
+                },
+                "tasks": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "description": "任务ID"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "任务名称"
+                      },
+                      "cycle": {
+                        "type": "number",
+                        "description": "任务执行时间"
+                      },
+                      "event_desc": {
+                        "type": "string",
+                        "description": "事件描述"
+                      },
+                      "desc": {
+                        "type": "string",
+                        "description": "任务描述"
+                      }
+                    },
+                    "required": ["id", "name", "event_desc", "cycle", "desc"]
+                  }
+                },
+                "score_ranking": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["name"]
+                  },
+                  "description": "成绩排行"
+                },
+                "reports": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "提交报告名称"
+                      },
+                      "report_url": {
+                        "type": "string",
+                        "description": "提交报告链接"
+                      }
+                    },
+                    "required": ["name", "report_url"]
+                  }
+                }
+              },
+              "required": ["id", "name", "run_time", "tasks", "score_ranking", "reports"]
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/competition/{id}/real_time_dynamics": {
+      "get": {
+        "tags": ["用户端"],
+        "summary": "实时动态",
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "比赛名称"
+                },
+                "run_time": {
+                  "type": "number",
+                  "description": "运行时间"
+                },
+                "tasks": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "description": "任务ID"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "任务名称"
+                      },
+                      "cycle": {
+                        "type": "number",
+                        "description": "任务执行时间"
+                      },
+                      "event_desc": {
+                        "type": "string",
+                        "description": "事件描述"
+                      },
+                      "desc": {
+                        "type": "string",
+                        "description": "任务描述"
+                      }
+                    },
+                    "required": ["id", "name", "event_desc", "cycle", "desc"]
+                  }
+                },
+                "score_ranking": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["name"]
+                  },
+                  "description": "成绩排行"
+                },
+                "reports": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "提交报告名称"
+                      },
+                      "report_url": {
+                        "type": "string",
+                        "description": "提交报告链接"
+                      }
+                    },
+                    "required": ["name", "report_url"]
+                  }
+                }
+              },
+              "required": ["id", "name", "run_time", "tasks", "score_ranking", "reports"]
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/competition/{id}/post_report": {
+      "post": {
+        "tags": ["用户端"],
+        "summary": "报告提交",
+        "description": "",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "file_url": {
+                  "type": "string",
+                  "description": "报告地址"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/competition/{id}": {
+      "get": {
+        "tags": ["用户端"],
+        "summary": "比赛详情",
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "比赛名称"
+                },
+                "run_time": {
+                  "type": "number",
+                  "description": "运行时间"
+                },
+                "scene_ duplicate_id": {
+                  "type": "number",
+                  "description": "场景副本ID"
+                },
+                "tasks": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "description": "任务ID"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "任务名称"
+                      },
+                      "cycle": {
+                        "type": "number",
+                        "description": "任务执行时间"
+                      },
+                      "event_desc": {
+                        "type": "string",
+                        "description": "事件描述"
+                      },
+                      "desc": {
+                        "type": "string",
+                        "description": "任务描述"
+                      }
+                    },
+                    "required": ["id", "name", "event_desc", "cycle", "desc"]
+                  }
+                },
+                "score_ranking": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["name"]
+                  },
+                  "description": "成绩排行"
+                },
+                "reports": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "提交报告名称"
+                      },
+                      "report_url": {
+                        "type": "string",
+                        "description": "提交报告链接"
+                      }
+                    },
+                    "required": ["name", "report_url"]
+                  },
+                  "description": "报告列表"
+                },
+                "monitor_alarm": {
+                  "type": "object",
+                  "properties": {},
+                  "description": "监控告警"
+                },
+                "response_process": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "事件名称"
+                      },
+                      "desc": {
+                        "type": "string",
+                        "description": "事件说明"
+                      },
+                      "task_desc": {
+                        "type": "string",
+                        "description": "处理建议"
+                      }
+                    },
+                    "required": ["name", "desc", "task_desc"]
+                  },
+                  "description": "响应处理"
+                },
+                "operation_center": {
+                  "type": "object",
+                  "properties": {},
+                  "description": "运维中心"
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "run_time",
+                "tasks",
+                "score_ranking",
+                "reports",
+                "monitor_alarm",
+                "response_process",
+                "scene_ duplicate_id",
+                "operation_center"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/competition/{id}/assessment": {
+      "get": {
+        "tags": ["用户端"],
+        "summary": "演练评估",
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "比赛名称"
+                },
+                "run_time": {
+                  "type": "number",
+                  "description": "运行时间"
+                },
+                "tasks": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "description": "任务ID"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "任务名称"
+                      },
+                      "cycle": {
+                        "type": "number",
+                        "description": "任务执行时间"
+                      },
+                      "event_desc": {
+                        "type": "string",
+                        "description": "事件描述"
+                      },
+                      "desc": {
+                        "type": "string",
+                        "description": "任务描述"
+                      }
+                    },
+                    "required": ["id", "name", "event_desc", "cycle", "desc"]
+                  }
+                },
+                "score_ranking": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["name"]
+                  },
+                  "description": "成绩排行"
+                },
+                "reports": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "提交报告名称"
+                      },
+                      "report_url": {
+                        "type": "string",
+                        "description": "提交报告链接"
+                      }
+                    },
+                    "required": ["name", "report_url"]
+                  }
+                }
+              },
+              "required": ["id", "name", "run_time", "tasks", "score_ranking", "reports"]
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/competition/{id}/communication_collaborate": {
+      "get": {
+        "tags": ["用户端"],
+        "summary": "通信协作",
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "比赛名称"
+                },
+                "run_time": {
+                  "type": "number",
+                  "description": "运行时间"
+                },
+                "tasks": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "description": "任务ID"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "任务名称"
+                      },
+                      "cycle": {
+                        "type": "number",
+                        "description": "任务执行时间"
+                      },
+                      "event_desc": {
+                        "type": "string",
+                        "description": "事件描述"
+                      },
+                      "desc": {
+                        "type": "string",
+                        "description": "任务描述"
+                      }
+                    },
+                    "required": ["id", "name", "event_desc", "cycle", "desc"]
+                  }
+                },
+                "score_ranking": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["name"]
+                  },
+                  "description": "成绩排行"
+                },
+                "reports": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "提交报告名称"
+                      },
+                      "report_url": {
+                        "type": "string",
+                        "description": "提交报告链接"
+                      }
+                    },
+                    "required": ["name", "report_url"]
+                  }
+                }
+              },
+              "required": ["id", "name", "run_time", "tasks", "score_ranking", "reports"]
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/competition/{id}/participants": {
+      "get": {
+        "tags": ["用户端-成果裁决"],
+        "summary": "参赛人员",
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "当前页数默认1。page=-1返回所有",
+            "type": "string"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "description": "分页每页记录数",
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "description": "状态。-1查看全部   0不在线   1在线",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "description": "昵称/手机号",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "昵称"
+                      },
+                      "phone": {
+                        "type": "string",
+                        "description": "手机号"
+                      },
+                      "answer_count": {
+                        "type": "number",
+                        "description": "答题数"
+                      },
+                      "status": {
+                        "type": "number",
+                        "description": "状态。-1查看全部   0未批阅   1批阅"
+                      },
+                      "score": {
+                        "type": "number",
+                        "description": "得分"
+                      }
+                    },
+                    "required": ["id", "name", "phone", "answer_count", "status", "score"]
+                  }
+                },
+                "page_info": {
+                  "type": "object",
+                  "properties": {
+                    "current_page": {
+                      "type": "number"
+                    },
+                    "total_page": {
+                      "type": "number"
+                    },
+                    "has_next": {
+                      "type": "boolean"
+                    },
+                    "has_previous": {
+                      "type": "boolean"
+                    },
+                    "object_count": {
+                      "type": "number"
+                    },
+                    "online_count": {
+                      "type": "number",
+                      "description": "在线人数"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/competition/{id}/ranking": {
+      "get": {
+        "tags": ["用户端-成果裁决"],
+        "summary": "排行榜",
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "当前页数默认1。page=-1返回所有",
+            "type": "string"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "description": "分页每页记录数",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "description": "昵称/手机号",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "姓名"
+                      },
+                      "team_name": {
+                        "type": "string",
+                        "description": "队伍"
+                      },
+                      "ranking": {
+                        "type": "number",
+                        "description": "状态。-1查看全部   0未批阅   1批阅"
+                      },
+                      "score": {
+                        "type": "number",
+                        "description": "得分"
+                      }
+                    },
+                    "required": ["id", "name", "team_name", "ranking", "score"]
+                  }
+                },
+                "page_info": {
+                  "type": "object",
+                  "properties": {
+                    "current_page": {
+                      "type": "number"
+                    },
+                    "total_page": {
+                      "type": "number"
+                    },
+                    "has_next": {
+                      "type": "boolean"
+                    },
+                    "has_previous": {
+                      "type": "boolean"
+                    },
+                    "object_count": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/competition/{id}/answer_records": {
+      "get": {
+        "tags": ["用户端-成果裁决"],
+        "summary": "答题记录",
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "当前页数默认1。page=-1返回所有",
+            "type": "string"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "description": "分页每页记录数",
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "description": "状态。-1查看全部   0未批阅   1批阅",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "description": "队伍/用户/事件名称",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "用户名"
+                      },
+                      "team_name": {
+                        "type": "string",
+                        "description": "队伍名称"
+                      },
+                      "task_name": {
+                        "type": "string",
+                        "description": "任务名称"
+                      },
+                      "write_up_url": {
+                        "type": "string",
+                        "description": "write_up文件"
+                      },
+                      "status": {
+                        "type": "number",
+                        "description": "状态。-1查看全部   0未批阅   1批阅"
+                      },
+                      "score": {
+                        "type": "number",
+                        "description": "得分"
+                      },
+                      "post_time": {
+                        "type": "string",
+                        "description": "提交时间"
+                      }
+                    },
+                    "required": ["id", "name", "team_name", "task_name", "write_up_url", "status", "score", "post_time"]
+                  }
+                },
+                "page_info": {
+                  "type": "object",
+                  "properties": {
+                    "current_page": {
+                      "type": "number"
+                    },
+                    "total_page": {
+                      "type": "number"
+                    },
+                    "has_next": {
+                      "type": "boolean"
+                    },
+                    "has_previous": {
+                      "type": "boolean"
+                    },
+                    "object_count": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/competition/{id}/judgment_records": {
+      "get": {
+        "tags": ["用户端-成果裁决"],
+        "summary": "裁判记录",
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "当前页数默认1。page=-1返回所有",
+            "type": "string"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "description": "分页每页记录数",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "description": "仲裁对象",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "judge": {
+                        "type": "string",
+                        "description": "裁判员"
+                      },
+                      "arbitration_user": {
+                        "type": "string",
+                        "description": "仲裁对象"
+                      },
+                      "reason": {
+                        "type": "string",
+                        "description": "原因"
+                      },
+                      "arbitration_time": {
+                        "type": "string",
+                        "description": "仲裁时间"
+                      },
+                      "score_type": {
+                        "type": "number",
+                        "description": "评分类型.1.加分 2.减分"
+                      },
+                      "score": {
+                        "type": "number",
+                        "description": "得分"
+                      }
+                    },
+                    "required": ["id", "judge", "arbitration_user", "reason", "score", "arbitration_time", "score_type"]
+                  }
+                },
+                "page_info": {
+                  "type": "object",
+                  "properties": {
+                    "current_page": {
+                      "type": "number"
+                    },
+                    "total_page": {
+                      "type": "number"
+                    },
+                    "has_next": {
+                      "type": "boolean"
+                    },
+                    "has_previous": {
+                      "type": "boolean"
+                    },
+                    "object_count": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["用户端-成果裁决"],
+        "summary": "裁判记录新增",
+        "description": "",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization (Only:)",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "arbitration_user": {
+                  "type": "number",
+                  "description": "仲裁对象"
+                },
+                "score_type": {
+                  "type": "number",
+                  "description": "评分类型.1.加分 2.减分"
+                },
+                "reason": {
+                  "type": "string",
+                  "description": "仲裁理由"
+                },
+                "score": {
+                  "type": "number",
+                  "description": "调整分值"
+                }
+              },
+              "required": ["arbitration_user", "score_type"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {}
+            }
+          }
+        }
+      }
+    }
+  }
+}

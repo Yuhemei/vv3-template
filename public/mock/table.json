@@ -1,0 +1,41 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "张三",
+      "money": 123,
+      "address": "广东省东莞市长安镇",
+      "status": true,
+      "date": "2023-11-1",
+      "thumb": "../assets/img/img.jpg"
+    },
+    {
+      "id": 2,
+      "name": "李四",
+      "money": 456,
+      "address": "广东省广州市白云区",
+      "status": true,
+      "date": "2023-10-11",
+      "thumb": "../assets/img/img.jpg"
+    },
+    {
+      "id": 3,
+      "name": "王五",
+      "money": 789,
+      "address": "湖南省长沙市",
+      "status": false,
+      "date": "2023-11-11",
+      "thumb": "../assets/img/img.jpg"
+    },
+    {
+      "id": 4,
+      "name": "赵六",
+      "money": 1011,
+      "address": "福建省厦门市鼓浪屿",
+      "status": true,
+      "date": "2023-10-20",
+      "thumb": "../assets/img/img.jpg"
+    }
+  ],
+  "pageTotal": 4
+}

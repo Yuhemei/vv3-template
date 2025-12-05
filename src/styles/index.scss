@@ -1,0 +1,25 @@
+@import url('./reset.css');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url(./icon.css);
+@import url(./simulation.scss);
+@import url(./main.css);
+@import url(./public.scss);
+@import url(./element-plus.scss);
+
+.collapse {
+  visibility: visible; //防止带有.collapse的元素隐藏，不可删
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+  margin: auto;
+}
+
+.container {
+  max-width: 100%;
+}

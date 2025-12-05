@@ -1,0 +1,17 @@
+<!--
+ * @Author: hemei yuhemei8088@163.com
+ * @Date: 2024-03-26 10:00:45
+ * @LastEditors: hemei
+ * @LastEditTime: 2024-03-26 10:11:06
+ * @Description: eslint 忽略文件
+-->
+node_modules
+dist
+lib
+build
+coverage
+.eslintrc.js
+.prettierrc.js
+.yalc
+.yarn
+.cache

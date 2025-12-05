@@ -1,0 +1,15 @@
+// .prettierignore
+.git
+.svn
+.vscode/
+out/
+dist/
+lib/
+test-fixtures/
+node_modules/
+package-lock.json
+yack-lock.json
+# 忽略自动生成路由相关的3个文件
+src/router/import.ts
+src/router/route.ts
+src/router/transform.ts

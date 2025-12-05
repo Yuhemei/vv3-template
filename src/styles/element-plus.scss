@@ -1,0 +1,25 @@
+.el-time-panel__content::after,
+.el-time-panel__content::before {
+  margin-top: -7px;
+}
+
+.el-time-spinner__wrapper .el-scrollbar__wrap:not(.el-scrollbar__wrap--hidden-default) {
+  padding-bottom: 0;
+}
+
+.el-icon {
+  vertical-align: middle;
+}
+
+.el-form-item .el-form-item {
+  margin-bottom: 18px;
+}
+
+.el-dropdown-menu__item {
+  margin: 1px 4px;
+  border-radius: 6px;
+}
+
+.el-pagination {
+  justify-content: center;
+}

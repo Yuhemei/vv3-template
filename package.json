@@ -1,0 +1,85 @@
+{
+  "name": "vv3-template",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": " vite build --mode production && node scripts/version.mjs",
+    "build:test": "vue-tsc && vite build --mode test",
+    "preview": "vite preview",
+    "api": " node scripts/create-api.js",
+    "format": "prettier --write \"src/**/*.{js,ts,jsx,tsx,vue,json,css,scss,less,md}\" --config .prettierrc.cjs",
+    "format:check": "prettier --check \"src/**/*.{js,ts,jsx,tsx,vue,json,css,scss,less,md}\" --config .prettierrc.cjs"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
+    "@sa/color": "workspace:*",
+    "@vueuse/core": "^11.3.0",
+    "@wangeditor/editor": "^5.1.23",
+    "@wangeditor/editor-for-vue": "^5.1.12",
+    "axios": "^1.7.8",
+    "countup.js": "^2.8.0",
+    "dayjs": "^1.11.13",
+    "echarts": "^5.5.1",
+    "echarts-wordcloud": "^2.1.0",
+    "element-plus": "2.11.9",
+    "js-cookie": "^3.0.5",
+    "lodash": "^4.17.21",
+    "md-editor-v3": "^5.0.2",
+    "node": "^20.18.1",
+    "nprogress": "^0.2.0",
+    "pdfjs-dist": "^4.9.124",
+    "pinia": "^3.0.4",
+    "qs": "^6.13.1",
+    "video.js": "^8.20.0",
+    "vue": "^3.5.25",
+    "vue-cropper": "1.1.1",
+    "vue-echarts": "^7.0.3",
+    "vue-router": "^4.6.3",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@elegant-router/vue": "0.3.8",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@types/js-cookie": "^3.0.6",
+    "@types/lodash": "^4.17.13",
+    "@types/node": "^24.10.1",
+    "@types/qs": "^6.9.17",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "@vitejs/plugin-vue-jsx": "5.1.2",
+    "@vue/tsconfig": "^0.8.1",
+    "autoprefixer": "^10.4.20",
+    "cz-customizable": "^7.2.1",
+    "postcss": "^8.4.49",
+    "sass": "^1.81.0",
+    "tailwindcss": "^3.4.15",
+    "typescript": "~5.9.0",
+    "vite": "npm:rolldown-vite@7.2.5",
+    "vite-plugin-html": "^3.2.2",
+    "vite-plugin-svg-icons": "^2.0.1",
+    "vite-plugin-vue-setup-extend": "^0.4.0",
+    "vue-tsc": "^3.1.5"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    },
+    "cz-customizable": {
+      "config": "./scripts/.cz-config.cjs"
+    }
+  },
+  "volta": {
+    "node": "22.11.0"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "@elegant-router/core@0.3.8": "patches/@elegant-router__core@0.3.8.patch"
+    }
+  }
+}

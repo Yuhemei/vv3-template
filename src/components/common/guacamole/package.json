@@ -1,0 +1,71 @@
+{
+  "_from": "guacamole-common-js@1.4.0-a",
+  "_id": "guacamole-common-js@1.4.0-a",
+  "_inBundle": false,
+  "_integrity": "sha512-4TFgc9iahkTUTpp5pA7WSu+TMhEQ/GgA1S6XCYoEtjDqaVAlLHaN6KFaKVMhs+xUuyIMoa2Cgj8peMB87TgYJQ==",
+  "_location": "/guacamole-common-js",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "guacamole-common-js@1.4.0-a",
+    "name": "guacamole-common-js",
+    "escapedName": "guacamole-common-js",
+    "rawSpec": "1.4.0-a",
+    "saveSpec": null,
+    "fetchSpec": "1.4.0-a"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmmirror.com/guacamole-common-js/-/guacamole-common-js-1.4.0-a.tgz",
+  "_shasum": "fc0489333f49dabdf237e6ce442667c526505740",
+  "_spec": "guacamole-common-js@1.4.0-a",
+  "_where": "D:\\FengTai\\zgh",
+  "author": {
+    "name": "Christopher Mühl",
+    "email": "christopher@padarom.io"
+  },
+  "bugs": {
+    "url": "https://issues.apache.org/jira/browse/GUACAMOLE/"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "The Guacamole javascript client",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-insert": "^0.5.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^3.0.0"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "homepage": "https://github.com/padarom/guacamole-common-js#readme",
+  "keywords": [
+    "guacamole",
+    "common",
+    "js",
+    "guac",
+    "remote",
+    "desktop",
+    "vnc",
+    "rdp",
+    "ssh",
+    "telnet"
+  ],
+  "license": "Apache 2.0",
+  "main": "dist/guacamole-common.js",
+  "name": "guacamole-common-js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/padarom/guacamole-common-js.git"
+  },
+  "scripts": {
+    "prepublishOnly": "gulp"
+  },
+  "version": "1.4.0-a"
+}
