@@ -8,7 +8,8 @@ export interface OptionI {
   label: string;
   value: string | number | boolean;
   disabled?: boolean;
-  items?: any;
+  item?: any;
+  children?: any[];
 }
 
 // 编辑单项配置
@@ -20,7 +21,7 @@ export interface EditConfigRowI {
   /** input输入框后缀 */
   suffix?: any;
   /** 对应type=select时的选项列表, 格式为[{label: '选项1', value: '1'}, {label: '选项2', value: '2'},...] */
-  options?: Ref<OptionI[] | undefined> | OptionI[];
+  options?: Ref<OptionI[]> | OptionI[];
   /** 对某些输入数据进行格式化 */
   formatter?: any;
   //  element类型
@@ -41,7 +42,8 @@ export interface EditConfigRowI {
     | 'textarea'
     | 'number'
     | 'password'
-    | 'checkbox';
+    | 'checkbox'
+    | 'transfer';
   // 字段中文名称，只做展示用
   label: string;
   //  字段名，对应data中的key
@@ -88,7 +90,7 @@ export interface EditConfigRowI {
 
 export interface FormOption {
   // 创建时使用的默认值
-  defaultValue?: object;
+  initValue?: Function;
   // 表单label的宽度,属于整体设置,优先级低于单项里面的labelWidth属性设置
   labelWidth?: string | number;
   // 整体的el-col的span属性

@@ -43,8 +43,8 @@ export interface ColumnsConfigI {
   prop?: string;
   width?: number | string;
   type?: string;
-  formatter?: (row: TableItem, column: ColumnsConfigI) => any;
-  classFormatter?: (row: TableItem, column: ColumnsConfigI) => any;
+  formatter?: (value: any, row: TableItem, column: ColumnsConfigI) => any;
+  classFormatter?: (value: any, row: TableItem, column: ColumnsConfigI) => any;
   isHref?: boolean;
   isLink?: boolean;
   downloadProp?: string;
@@ -59,7 +59,7 @@ export interface Column {
   /** 列宽度 */
   width?: number | string;
   /** 列类型 */
-  type?: ['index', 'expand', 'slot', 'callback'];
+  type?: 'index' | 'expand' | 'slot' | 'callback' | 'image' | 'selection' | string;
   /** 列对齐方式 */
   align?: string;
   /** 列是否显示 */
@@ -73,7 +73,7 @@ export interface Column {
   /** 自定义class */
   classFormatter?: Function;
   /** 自定义渲染 */
-  formatter?: (propValue: any, row: any, prop: any) => string;
+  formatter?: (propValue: any, row: any, prop: any) => any;
   /** 其他绑定 */
   bind?: any;
 }
