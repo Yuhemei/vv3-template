@@ -7,11 +7,12 @@
 module.exports = {
   // 可选类型
   types: [
-    { value: 'business', name: 'business: 业务' },
     { value: 'feat', name: 'feat:     新增功能' },
     { value: 'fix', name: 'fix:      修复功能' },
+    { value: 'todo', name: 'todo:     待办事项' },
     { value: 'docs', name: 'docs:     更新文档' },
     { value: 'style', name: 'style:    样式修改' },
+    { value: 'public', name: 'public: 公共组件' },
     { value: 'refactor', name: 'refactor: 代码重构：非新增功能非修改功能' },
     { value: 'perf', name: 'perf:     性能优化' },
     { value: 'test', name: 'test:     增加测试用例' },

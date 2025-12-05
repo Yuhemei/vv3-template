@@ -21,10 +21,10 @@ const json = {
   version: commitId,
 };
 const versionPath = 'version.json'; // 打包后生成的文件
-const buildPath = 'dist/manager'; // 打包的路径 必须与 项目打包路径和名称一致
+const buildPath = 'dist/dist'; // 打包的路径 必须与 项目打包路径和名称一致
 console.log(JSON.stringify(json));
 
 if (fs.existsSync(buildPath)) {
   fs.writeFileSync(`${buildPath}/${versionPath}`, JSON.stringify(json));
 }
-console.log(['╦══╔═╦═╗╦ ╦ ═╦═', '╠══  ║	╠╠   ║', '╩    ╩	╩ ╩ ═╝'].join('\n'));
+console.log('Done');
