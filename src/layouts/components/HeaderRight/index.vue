@@ -1,21 +1,27 @@
-/$$ $ @Date: 2025-07-30 11:32:48 $/
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-import { getUser, goLogin } from '@/utils/cache';
 import SvgIcon from '@/components/SvgIcon/index.vue';
 import 'virtual:svg-icons-register';
-import imgUrl from '@/assets/img/img.jpg';
 import { ref } from 'vue';
+import useUserStore from '@/store/user';
 
+const userStore = useUserStore();
+const props = defineProps({
+  isHome: {
+    type: Boolean,
+    default: false,
+  },
+});
 const router = useRouter();
-const username: string = getUser() || '用户';
 const message: number = 2;
 
 const handleCommand = (command: string) => {
   if (command == 'logout') {
-    goLogin('logout');
+    userStore.logout('logout');
   } else if (command == 'user') {
     router.push('/ucenter');
+  } else if (command == 'login') {
+    userStore.login('login');
   }
 };
 const setFullScreen = () => {
@@ -34,37 +40,38 @@ const isFullScreen = ref(false);
 <template>
   <div class="header-right">
     <div class="header-user-con">
-      <div class="btn-icon" @click="router.push('/theme')">
+      <!-- <div v-if="!props.isHome" class="btn-icon" @click="router.push('/theme')">
         <el-tooltip effect="dark" content="设置主题" placement="bottom">
           <SvgIcon class="icon" icon-class="theme" />
         </el-tooltip>
       </div>
-      <div class="btn-icon" @click="router.push('/ucenter')">
+      <div v-if="!props.isHome" class="btn-icon" @click="router.push('/ucenter')">
         <el-badge :is-dot="!!message" class="badge-item">
           <el-tooltip effect="dark" :content="message ? `有${message}条未读消息` : `消息中心`" placement="bottom">
             <SvgIcon class="icon" icon-class="message" />
           </el-tooltip>
         </el-badge>
-      </div>
-      <div class="btn-icon" @click="setFullScreen">
+      </div> -->
+      <div v-if="!props.isHome" class="btn-icon" @click="setFullScreen">
         <el-tooltip effect="dark" :content="isFullScreen ? '退出全屏' : '全屏'" placement="bottom">
           <SvgIcon class="icon" :icon-class="isFullScreen ? 'exit-fullscreen' : 'fullscreen'" />
         </el-tooltip>
       </div>
       <!-- 用户头像 -->
-      <el-avatar class="user-avatar" :size="30" :src="imgUrl" />
+      <el-avatar class="user-avatar" :size="30" :src="userStore.getAvatar" />
       <!-- 用户名下拉菜单 -->
       <el-dropdown class="user-name" trigger="click" @command="handleCommand">
         <span class="el-dropdown-link">
-          {{ username }}
+          {{ userStore.getUser.username }}
           <el-icon class="el-icon--right">
             <arrow-down />
           </el-icon>
         </span>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item command="user">个人中心</el-dropdown-item>
-            <el-dropdown-item divided command="logout">退出登录</el-dropdown-item>
+            <el-dropdown-item v-if="userStore.isLogin" command="user">个人中心</el-dropdown-item>
+            <el-dropdown-item v-if="userStore.isLogin" divided command="logout">退出登录</el-dropdown-item>
+            <el-dropdown-item v-else command="login">登录</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>

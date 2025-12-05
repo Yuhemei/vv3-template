@@ -111,6 +111,8 @@ const sidebar = useSidebarStore();
   overflow-y: scroll;
   z-index: 100;
   box-shadow: 2px 0 8px 0 rgb(29, 35, 41, 0.05);
+  background-color: var(--sidebar-bg-color);
+  color: var(--sidebar-text-color);
 
   &.collapse {
     .logo {
@@ -156,8 +158,9 @@ const sidebar = useSidebarStore();
 
     &.is-active,
     &:hover {
+      color: var(--sidebar-active-color);
       border-radius: var(--el-card-border-radius);
-      background-color: var(--side-hover-bg-color);
+      //background-color: var(--side-hover-bg-color);
     }
 
     .icon {
@@ -177,23 +180,23 @@ const sidebar = useSidebarStore();
   }
 
   .title-span1 {
-    width: calc(var(--sider-width) - 90px);
+    width: calc(var(--side-width) - 90px);
   }
 
   .title-span1-i {
-    width: calc(var(--sider-width) - 110px);
+    width: calc(var(--side-width) - 110px);
   }
 
   .title-span2 {
-    width: calc(var(--sider-width) - 110px);
+    width: calc(var(--side-width) - 110px);
   }
 
   .title-span2-i {
-    width: calc(var(--sider-width) - 130px);
+    width: calc(var(--side-width) - 130px);
   }
 
   .title-span3 {
-    width: calc(var(--sider-width) - 125px);
+    width: calc(var(--side-width) - 125px);
   }
 }
 </style>

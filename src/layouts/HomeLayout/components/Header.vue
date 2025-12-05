@@ -3,27 +3,17 @@
     <!-- 折叠按钮 -->
     <div class="header-left">
       <Logo />
-      <NavList :menuList="props.menuList" />
     </div>
-    <HeaderRight />
+    <HeaderRight is-home />
   </div>
 </template>
 <script setup lang="ts">
-import { onMounted, PropType } from 'vue';
+import { onMounted } from 'vue';
 import { useSidebarStore } from '@/store/sidebar';
 import 'virtual:svg-icons-register';
 
 import HeaderRight from '@/layouts/components/HeaderRight/index.vue';
-import NavList from '@/layouts/components/NavList/index.vue';
 import Logo from '@/layouts/components/Logo/index.vue';
-
-const props = defineProps({
-  /** header中的菜单列表 */
-  menuList: {
-    type: Array as PropType<HeaderMenu[]>,
-    default: () => [],
-  },
-});
 
 const sidebar = useSidebarStore();
 // 侧边栏折叠

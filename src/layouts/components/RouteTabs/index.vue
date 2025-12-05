@@ -58,7 +58,7 @@ const setTags = (route: any) => {
     return item.path === route.fullPath;
   });
   // 判断是否需要添加标签页
-  if (!isExist && tabsListExceptConfig.indexOf(route.path) === -1) {
+  if (!isExist && !tabsListExceptConfig.some(item => route.path.startsWith(item))) {
     if (tabsListAddConfig.find(item => item.path === route.path)) {
       const tabItem = tabsListAddConfig.find(item => item.path === route.path) || {
         meta: { title: route.meta.title || '未命名', icon: route.meta.icon || '' },

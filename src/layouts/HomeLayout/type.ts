@@ -10,8 +10,6 @@ interface HeaderMenu {
   text: string;
   name: string;
   path: string;
-  redirect: string;
   isHeaderVisible?: boolean;
   isSideBarMenuVisible?: boolean;
-  icon?: string;
 }

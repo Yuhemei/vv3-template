@@ -47,9 +47,9 @@ onMounted(() => {
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
-  width: calc(100% - var(--sider-width));
+  width: calc(100% - var(--side-width));
   height: var(--header-height);
-  transform: translateX(var(--sider-width));
+  transform: translateX(var(--side-width));
   color: var(--header-text-color);
   background-color: var(--header-bg-color);
   // border-bottom: 1px solid var(--border-color);
