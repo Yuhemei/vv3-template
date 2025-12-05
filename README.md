@@ -6,11 +6,11 @@
  * @Description:
 -->
 
-# 大唐培训系统后台
+# Vue3 TS Template
 
 ## 介绍
 
-S&E前端工程支撑组 V3 开发模板,核心功能以及组件封装在main分支上开发，开发完成以后再rebase到个个子分支
+Vue3 TS Template,核心功能以及组件封装在main分支上开发，开发完成以后再rebase到个个子分支
 
 ## 安装
 
