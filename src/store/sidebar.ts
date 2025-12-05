@@ -4,8 +4,8 @@ export const useSidebarStore = defineStore('sidebar', {
   state: () => {
     return {
       collapse: false,
-      bgColor: localStorage.getItem('sidebar-bg-color') || '#ffffff',
-      textColor: localStorage.getItem('sidebar-text-color') || '#333639',
+      bgColor: localStorage.getItem('sidebar-bg-color') || 'var(--sidebar-bg-color)',
+      textColor: localStorage.getItem('sidebar-text-color') || 'var(--sidebar-text-color)',
     };
   },
   getters: {},

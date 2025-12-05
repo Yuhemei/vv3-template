@@ -48,12 +48,11 @@ export const useTabsStore = defineStore('tabs', {
         icon: obj.icon || route.meta.icon,
       };
       /** 如果路由地址在tabsListExceptConfig中，则不添加到tabs中 */
-      if (tabsListExceptConfig.includes(route.fullPath)) return;
+      if (tabsListExceptConfig.some(item => route.fullPath.startsWith(item))) return;
       this.list.push(json);
     },
-    clearTabs(router: Router) {
+    clearTabs() {
       this.list = [];
-      router.push('/');
     },
     closeTabsOther(data: ListItem[]) {
       this.list = data;
